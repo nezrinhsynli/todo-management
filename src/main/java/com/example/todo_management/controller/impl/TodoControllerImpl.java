@@ -2,6 +2,7 @@ package com.example.todo_management.controller.impl;
 
 import com.example.todo_management.controller.IController;
 import com.example.todo_management.dto.request.TodoRequest;
+import com.example.todo_management.dto.response.BaseResponse;
 import com.example.todo_management.entities.Todo;
 import com.example.todo_management.service.ITodoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,14 @@ public class TodoControllerImpl implements IController {
 
     @PostMapping(path = "/save")
     @Override
-    public void save(@RequestBody TodoRequest todoRequest) {
-        todoService.save(todoRequest);
+    public BaseResponse save(@RequestBody TodoRequest todoRequest) {
+        return todoService.save(todoRequest);
+    }
+
+    @GetMapping(path = "/get-by-id/{id}")
+    @Override
+    public Todo getById(@PathVariable Long id) {
+        return todoService.getById(id);
     }
 
     @GetMapping(path = "/get-all")
@@ -28,10 +35,16 @@ public class TodoControllerImpl implements IController {
         return todoService.getAll();
     }
 
+    @PutMapping(path = "/update/{id}")
+    @Override
+    public BaseResponse update(@PathVariable Long id, @RequestBody TodoRequest todoRequest) {
+        return todoService.update(id, todoRequest);
+    }
+
     @DeleteMapping(path = "/delete/{id}")
     @Override
-    public void delete(@PathVariable Long id){
-        todoService.delete(id);
+    public BaseResponse delete(@PathVariable Long id) {
+        return todoService.delete(id);
     }
 
 }
