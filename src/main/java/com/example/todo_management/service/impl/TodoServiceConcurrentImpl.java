@@ -6,27 +6,50 @@ import com.example.todo_management.entities.Todo;
 import com.example.todo_management.enums.ErrorCodeEnum;
 import com.example.todo_management.exception.TodoNotFoundException;
 import com.example.todo_management.repository.TodoRepository;
-import com.example.todo_management.service.ITodoService;
+import com.example.todo_management.service.ITodoServiceConcurrent;
+import org.apache.logging.log4j.util.Supplier;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.*;
 
 @Service
-public class TodoServiceImpl implements ITodoService {
+public class TodoServiceConcurrentImpl implements ITodoServiceConcurrent {
 
     @Autowired
     private TodoRepository todoRepository;
 
-    @Override
-    public BaseResponse save(TodoRequest todoRequest) {
-        Todo todo = new Todo();
-        BeanUtils.copyProperties(todoRequest, todo);
+    private final ExecutorService executor = Executors.newFixedThreadPool(3);
 
-        todoRepository.save(todo);
-        return BaseResponse.getSuccessMessage();
+    @Override
+    public CompletableFuture<BaseResponse> save(TodoRequest todoRequest) {
+
+        Callable<BaseResponse> task = new Callable<BaseResponse>() {
+            @Override
+            public BaseResponse call() throws Exception {
+                Todo todo = new Todo();
+                BeanUtils.copyProperties(todoRequest, todo);
+
+                todoRepository.save(todo);
+                return BaseResponse.getSuccessMessage();
+            }
+        };
+
+        Future<BaseResponse> future = executor.submit(task);
+
+        return CompletableFuture.supplyAsync(new Supplier<BaseResponse>() {
+            @Override
+            public BaseResponse get() {
+                try {
+                    return future.get();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 
     @Override

@@ -1,25 +1,26 @@
 package com.example.todo_management.controller.impl;
 
-import com.example.todo_management.controller.IController;
+import com.example.todo_management.controller.ITodoControllerConcurrent;
 import com.example.todo_management.dto.request.TodoRequest;
 import com.example.todo_management.dto.response.BaseResponse;
 import com.example.todo_management.entities.Todo;
-import com.example.todo_management.service.ITodoService;
+import com.example.todo_management.service.ITodoServiceConcurrent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping(path = "rest/api/todo")
-public class TodoControllerImpl implements IController {
+@RequestMapping(path = "rest/api/concurrent/todo")
+public class TodoControllerConcurrentImpl implements ITodoControllerConcurrent {
 
     @Autowired
-    private ITodoService todoService;
+    private ITodoServiceConcurrent todoService;
 
     @PostMapping(path = "/save")
     @Override
-    public BaseResponse save(@RequestBody TodoRequest todoRequest) {
+    public CompletableFuture<BaseResponse> save(@RequestBody TodoRequest todoRequest) {
         return todoService.save(todoRequest);
     }
 

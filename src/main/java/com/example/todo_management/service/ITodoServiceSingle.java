@@ -1,4 +1,4 @@
-package com.example.todo_management.controller;
+package com.example.todo_management.service;
 
 import com.example.todo_management.dto.request.TodoRequest;
 import com.example.todo_management.dto.response.BaseResponse;
@@ -6,7 +6,7 @@ import com.example.todo_management.entities.Todo;
 
 import java.util.List;
 
-public interface IController {
+public interface ITodoServiceSingle {
 
     BaseResponse save(TodoRequest todoRequest);
 

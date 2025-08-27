@@ -1,14 +1,15 @@
-package com.example.todo_management.service;
+package com.example.todo_management.controller;
 
 import com.example.todo_management.dto.request.TodoRequest;
 import com.example.todo_management.dto.response.BaseResponse;
 import com.example.todo_management.entities.Todo;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
-public interface ITodoService {
+public interface ITodoControllerConcurrent {
 
-    BaseResponse save(TodoRequest todoRequest);
+    CompletableFuture<BaseResponse> save(TodoRequest todoRequest);
 
     Todo getById(Long id);
 
