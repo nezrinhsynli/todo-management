@@ -26,25 +26,25 @@ public class TodoControllerConcurrentImpl implements ITodoControllerConcurrent {
 
     @GetMapping(path = "/get-by-id/{id}")
     @Override
-    public Todo getById(@PathVariable Long id) {
+    public CompletableFuture<Todo> getById(@PathVariable Long id) {
         return todoService.getById(id);
     }
 
     @GetMapping(path = "/get-all")
     @Override
-    public List<Todo> getAll() {
+    public CompletableFuture<List<Todo>> getAll() {
         return todoService.getAll();
     }
 
     @PutMapping(path = "/update/{id}")
     @Override
-    public BaseResponse update(@PathVariable Long id, @RequestBody TodoRequest todoRequest) {
+    public CompletableFuture<BaseResponse> update(@PathVariable Long id, @RequestBody TodoRequest todoRequest) {
         return todoService.update(id, todoRequest);
     }
 
     @DeleteMapping(path = "/delete/{id}")
     @Override
-    public BaseResponse delete(@PathVariable Long id) {
+    public CompletableFuture<BaseResponse> delete(@PathVariable Long id) {
         return todoService.delete(id);
     }
 

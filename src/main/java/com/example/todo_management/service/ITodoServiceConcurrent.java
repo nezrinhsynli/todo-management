@@ -11,12 +11,12 @@ public interface ITodoServiceConcurrent {
 
     CompletableFuture<BaseResponse> save(TodoRequest todoRequest);
 
-    Todo getById(Long id);
+    CompletableFuture<Todo> getById(Long id);
 
-    List<Todo> getAll();
+    CompletableFuture<List<Todo>> getAll();
 
-    BaseResponse update(Long id, TodoRequest todoRequest);
+    CompletableFuture<BaseResponse> update(Long id, TodoRequest todoRequest);
 
-    BaseResponse delete(Long id);
+    CompletableFuture<BaseResponse>  delete(Long id);
 
 }

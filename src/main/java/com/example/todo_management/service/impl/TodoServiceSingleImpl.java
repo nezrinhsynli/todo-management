@@ -21,7 +21,7 @@ public class TodoServiceSingleImpl implements ITodoServiceSingle {
     private TodoRepository todoRepository;
 
     @Override
-    public BaseResponse save(TodoRequest todoRequest) {
+    public synchronized BaseResponse save(TodoRequest todoRequest) {
         Todo todo = new Todo();
         BeanUtils.copyProperties(todoRequest, todo);
 
@@ -52,7 +52,7 @@ public class TodoServiceSingleImpl implements ITodoServiceSingle {
     }
 
     @Override
-    public BaseResponse update(Long id, TodoRequest todoRequest) {
+    public synchronized BaseResponse update(Long id, TodoRequest todoRequest) {
         Optional<Todo> byId = todoRepository.findById(id);
 
         Todo todo;
@@ -69,7 +69,7 @@ public class TodoServiceSingleImpl implements ITodoServiceSingle {
     }
 
     @Override
-    public BaseResponse delete(Long id) {
+    public synchronized BaseResponse delete(Long id) {
         Optional<Todo> optionalTodo = todoRepository.findById(id);
 
         if (optionalTodo.isPresent()) {

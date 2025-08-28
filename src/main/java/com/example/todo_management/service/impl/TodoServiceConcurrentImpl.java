@@ -7,9 +7,9 @@ import com.example.todo_management.enums.ErrorCodeEnum;
 import com.example.todo_management.exception.TodoNotFoundException;
 import com.example.todo_management.repository.TodoRepository;
 import com.example.todo_management.service.ITodoServiceConcurrent;
-import org.apache.logging.log4j.util.Supplier;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,60 +22,43 @@ public class TodoServiceConcurrentImpl implements ITodoServiceConcurrent {
     @Autowired
     private TodoRepository todoRepository;
 
-    private final ExecutorService executor = Executors.newFixedThreadPool(3);
-
+    @Async
     @Override
     public CompletableFuture<BaseResponse> save(TodoRequest todoRequest) {
+        Todo todo = new Todo();
+        BeanUtils.copyProperties(todoRequest, todo);
 
-        Callable<BaseResponse> task = new Callable<BaseResponse>() {
-            @Override
-            public BaseResponse call() throws Exception {
-                Todo todo = new Todo();
-                BeanUtils.copyProperties(todoRequest, todo);
-
-                todoRepository.save(todo);
-                return BaseResponse.getSuccessMessage();
-            }
-        };
-
-        Future<BaseResponse> future = executor.submit(task);
-
-        return CompletableFuture.supplyAsync(new Supplier<BaseResponse>() {
-            @Override
-            public BaseResponse get() {
-                try {
-                    return future.get();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
+        todoRepository.save(todo);
+        return CompletableFuture.completedFuture(BaseResponse.getSuccessMessage());
     }
 
+    @Async
     @Override
-    public Todo getById(Long id) {
+    public CompletableFuture<Todo> getById(Long id) {
         Optional<Todo> byId = todoRepository.findById(id);
 
         if (byId.isPresent()) {
-            return byId.get();
+            return CompletableFuture.completedFuture(byId.get());
         } else {
             throw new TodoNotFoundException(ErrorCodeEnum.NOT_FOUND.getMessage());
         }
     }
 
+    @Async
     @Override
-    public List<Todo> getAll() {
+    public CompletableFuture<List<Todo>> getAll() {
         List<Todo> todoList = todoRepository.findAll();
 
         if (todoList.isEmpty()) {
             throw new TodoNotFoundException(ErrorCodeEnum.NOT_FOUND.getMessage());
         } else {
-            return todoList;
+            return CompletableFuture.completedFuture(todoList);
         }
     }
 
+    @Async
     @Override
-    public BaseResponse update(Long id, TodoRequest todoRequest) {
+    public CompletableFuture<BaseResponse> update(Long id, TodoRequest todoRequest) {
         Optional<Todo> byId = todoRepository.findById(id);
 
         Todo todo;
@@ -88,11 +71,12 @@ public class TodoServiceConcurrentImpl implements ITodoServiceConcurrent {
 
         BeanUtils.copyProperties(todoRequest, todo);
         todoRepository.save(todo);
-        return BaseResponse.getSuccessMessage();
+        return CompletableFuture.completedFuture(BaseResponse.getSuccessMessage());
     }
 
+    @Async
     @Override
-    public BaseResponse delete(Long id) {
+    public CompletableFuture<BaseResponse> delete(Long id) {
         Optional<Todo> optionalTodo = todoRepository.findById(id);
 
         if (optionalTodo.isPresent()) {
@@ -101,7 +85,7 @@ public class TodoServiceConcurrentImpl implements ITodoServiceConcurrent {
         } else {
             throw new TodoNotFoundException(ErrorCodeEnum.NOT_FOUND.getMessage());
         }
-        return BaseResponse.getSuccessMessage();
+        return CompletableFuture.completedFuture(BaseResponse.getSuccessMessage());
     }
 
 }
