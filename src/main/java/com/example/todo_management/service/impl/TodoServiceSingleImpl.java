@@ -54,7 +54,6 @@ public class TodoServiceSingleImpl implements ITodoServiceSingle {
     @Override
     public synchronized BaseResponse update(Long id, TodoRequest todoRequest) {
         Optional<Todo> byId = todoRepository.findById(id);
-
         Todo todo;
 
         if (byId.isPresent()) {
