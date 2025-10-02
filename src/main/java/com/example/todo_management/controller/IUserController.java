@@ -9,6 +9,8 @@ public interface IUserController {
 
     List<User> getAllUsers();
 
+    User findByNameAndSurname (String name, String surname);
+
     void createUser(UserRequest userRequest);
 
     void updateUser(Long id, UserRequest userRequest);

@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * @RequestHeader HTTP headerden data cekmek ucun istf olunur, elave melumatlar oturlur (token, version ve.s)
+ * Esasen Authentication / Authorization hallarinda, GET metodlarinda istf. olunur.
+ */
+
 @RestController
 @RequestMapping(path = "/v1/users")
 public class UserControllerImpl implements IUserController {
@@ -25,8 +30,15 @@ public class UserControllerImpl implements IUserController {
     }
 
     @GetMapping
+    @Override
     public List<User> getAllUsers() {
         return userService.getAllUsers();
+    }
+
+    @GetMapping("/search")
+    @Override
+    public User findByNameAndSurname(@RequestParam String name, @RequestParam String surname) {
+        return userService.findByNameAndSurname(name, surname);
     }
 
     @PutMapping(path = "/{id}")

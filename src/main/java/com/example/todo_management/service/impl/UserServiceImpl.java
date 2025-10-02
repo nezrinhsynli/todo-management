@@ -31,6 +31,11 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public User findByNameAndSurname(String name, String surname) {
+        return userRepository.findByNameAndSurname(name, surname);
+    }
+
+    @Override
     public void createUser(UserRequest userRequest) {
         User user = new User();
 
