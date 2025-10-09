@@ -4,21 +4,22 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "todo")
-@Data
+@Table(name = "users")
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Todo {
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @EqualsAndHashCode.Include
     private Long id;
 
-    @Column(name = "title", nullable = false, length = 20)
-    private String title;
+    private String name;
 
-    @Column(name = "text", length = 200)
-    private String text;
+    private String surname;
 
 }

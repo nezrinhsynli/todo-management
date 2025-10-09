@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>todo-management</artifactId>
+    <artifactId>todoEntity-management</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>todo-management</name>
+    <name>todoEntity-management</name>
     <description>Demo project</description>
     <url/>
     <licenses>
@@ -69,6 +69,18 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.18.0</version> <!-- FIXED version -->
         </dependency>
+
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.6.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>1.6.3</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -81,6 +93,11 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>1.6.3</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>

@@ -5,7 +5,8 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TodoRequest {
+@Builder
+public class TodoRequestDTO {
 
     private String title;
     private String text;
