@@ -40,21 +40,21 @@ public class UserService {
     }
 
     public void updateUser(Long id, UserRequestDTO userRequestDTO) {
-        UserEntity userEntity = userRepository.findById(id).orElseThrow(() -> new RuntimeException());
+        UserEntity userEntity = userRepository.findById(id).orElseThrow(RuntimeException::new);
 
         userMapper.updateEntityFromDTO(userRequestDTO, userEntity);
         userRepository.save(userEntity);
     }
 
     public void updateUserPartially(Long id, UserRequestDTO userRequestDTO) {
-        UserEntity userEntity = userRepository.findById(id).orElseThrow(() -> new RuntimeException());
+        UserEntity userEntity = userRepository.findById(id).orElseThrow(RuntimeException::new);
 
         userMapper.updateEntityFromDTO(userRequestDTO, userEntity);
         userRepository.save(userEntity);
     }
 
     public void deleteUser(Long id) {
-        UserEntity userEntity = userRepository.findById(id).orElseThrow(() -> new RuntimeException());
+        UserEntity userEntity = userRepository.findById(id).orElseThrow((RuntimeException::new));
         userRepository.delete(userEntity);
     }
 
