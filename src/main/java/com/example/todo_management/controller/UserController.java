@@ -1,7 +1,7 @@
 package com.example.todo_management.controller;
 
 import com.example.todo_management.dto.request.UserRequestDTO;
-import com.example.todo_management.entities.UserEntity;
+import com.example.todo_management.dao.entity.UserEntity;
 import com.example.todo_management.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

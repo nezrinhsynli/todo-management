@@ -2,7 +2,7 @@ package com.example.todo_management.controller;
 
 import com.example.todo_management.dto.request.TodoRequestDTO;
 import com.example.todo_management.dto.response.BaseResponseDTO;
-import com.example.todo_management.entities.TodoEntity;
+import com.example.todo_management.dao.entity.TodoEntity;
 import com.example.todo_management.service.TodoServiceSingle;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

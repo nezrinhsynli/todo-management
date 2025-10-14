@@ -1,7 +1,7 @@
 package com.example.todo_management.mapper;
 
 import com.example.todo_management.dto.request.UserRequestDTO;
-import com.example.todo_management.entities.UserEntity;
+import com.example.todo_management.dao.entity.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;

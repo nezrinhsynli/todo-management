@@ -1,4 +1,4 @@
-package com.example.todo_management.entities;
+package com.example.todo_management.dao.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

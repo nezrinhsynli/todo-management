@@ -1,9 +1,9 @@
 package com.example.todo_management.service;
 
 import com.example.todo_management.dto.request.UserRequestDTO;
-import com.example.todo_management.entities.UserEntity;
+import com.example.todo_management.dao.entity.UserEntity;
 import com.example.todo_management.mapper.UserMapper;
-import com.example.todo_management.repository.UserRepository;
+import com.example.todo_management.dao.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

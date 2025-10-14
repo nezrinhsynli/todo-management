@@ -2,10 +2,10 @@ package com.example.todo_management.service;
 
 import com.example.todo_management.dto.request.TodoRequestDTO;
 import com.example.todo_management.dto.response.BaseResponseDTO;
-import com.example.todo_management.entities.TodoEntity;
+import com.example.todo_management.dao.entity.TodoEntity;
 import com.example.todo_management.enums.ErrorCodeEnum;
 import com.example.todo_management.exception.TodoNotFoundException;
-import com.example.todo_management.repository.TodoRepository;
+import com.example.todo_management.dao.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
