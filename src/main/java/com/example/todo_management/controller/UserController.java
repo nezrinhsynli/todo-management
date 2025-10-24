@@ -3,6 +3,7 @@ package com.example.todo_management.controller;
 import com.example.todo_management.dto.request.UserRequestDTO;
 import com.example.todo_management.dao.entity.UserEntity;
 import com.example.todo_management.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public Long createUser(@RequestBody UserRequestDTO userRequestDTO) {
+    public Long createUser(@Valid @RequestBody UserRequestDTO userRequestDTO) {
         return userService.createUser(userRequestDTO);
     }
 
@@ -26,22 +27,22 @@ public class UserController {
     }
 
     @GetMapping("/search")
-    public UserRequestDTO findByNameAndSurname(@RequestParam String name, @RequestParam String surname) {
-        return userService.findByNameAndSurname(name, surname);
+    public UserRequestDTO findUserByNameAndSurname(@RequestParam String name, @RequestParam String surname) {
+        return userService.findUserByNameAndSurname(name, surname);
     }
 
     @PutMapping("/{id}")
-    public void updateUser(@PathVariable Long id, @RequestBody UserRequestDTO userRequestDTO) {
-        userService.updateUser(id, userRequestDTO);
+    public void updateUserById(@PathVariable Long id, @Valid @RequestBody UserRequestDTO userRequestDTO) {
+        userService.updateUserById(id, userRequestDTO);
     }
 
     @PatchMapping("/{id}")
-    public void updateUserPartially(@PathVariable Long id, @RequestBody UserRequestDTO userRequestDTO) {
+    public void updateUserPartially(@PathVariable Long id, @Valid @RequestBody UserRequestDTO userRequestDTO) {
         userService.updateUserPartially(id, userRequestDTO);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
+    public void deleteUserById(@PathVariable Long id) {
+        userService.deleteUserById(id);
     }
 }

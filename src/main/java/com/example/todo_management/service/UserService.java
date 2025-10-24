@@ -2,6 +2,8 @@ package com.example.todo_management.service;
 
 import com.example.todo_management.dto.request.UserRequestDTO;
 import com.example.todo_management.dao.entity.UserEntity;
+import com.example.todo_management.enums.ErrorCodeEnum;
+import com.example.todo_management.exception.UserNotFoundException;
 import com.example.todo_management.mapper.UserMapper;
 import com.example.todo_management.dao.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,34 +28,34 @@ public class UserService {
         List<UserEntity> userList = userRepository.findAll();
 
         if (userList.isEmpty()) {
-            throw new RuntimeException();
+            throw new UserNotFoundException(ErrorCodeEnum.USER_NOT_FOUND.getMessage());
         }
         return userList;
     }
 
-    public UserRequestDTO findByNameAndSurname(String name, String surname) {
+    public UserRequestDTO findUserByNameAndSurname(String name, String surname) {
         UserEntity userEntity = userRepository.findByNameAndSurname(name, surname);
         if (userEntity == null) {
-            throw new RuntimeException();
+            throw new UserNotFoundException(ErrorCodeEnum.USER_NOT_FOUND.getMessage());
         }
         return userMapper.toDTO(userEntity);
     }
 
-    public void updateUser(Long id, UserRequestDTO userRequestDTO) {
-        UserEntity userEntity = userRepository.findById(id).orElseThrow(RuntimeException::new);
+    public void updateUserById(Long id, UserRequestDTO userRequestDTO) {
+        UserEntity userEntity = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(ErrorCodeEnum.USER_NOT_FOUND.getMessage()));
 
         userMapper.updateEntityFromDTO(userRequestDTO, userEntity);
         userRepository.save(userEntity);
     }
 
     public void updateUserPartially(Long id, UserRequestDTO userRequestDTO) {
-        UserEntity userEntity = userRepository.findById(id).orElseThrow(RuntimeException::new);
+        UserEntity userEntity = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(ErrorCodeEnum.USER_NOT_FOUND.getMessage()));
 
         userMapper.updateEntityFromDTO(userRequestDTO, userEntity);
         userRepository.save(userEntity);
     }
 
-    public void deleteUser(Long id) {
+    public void deleteUserById(Long id) {
         UserEntity userEntity = userRepository.findById(id).orElseThrow((RuntimeException::new));
         userRepository.delete(userEntity);
     }

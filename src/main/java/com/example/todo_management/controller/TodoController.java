@@ -3,7 +3,7 @@ package com.example.todo_management.controller;
 import com.example.todo_management.dto.request.TodoRequestDTO;
 import com.example.todo_management.dto.response.BaseResponseDTO;
 import com.example.todo_management.dao.entity.TodoEntity;
-import com.example.todo_management.service.TodoServiceSingle;
+import com.example.todo_management.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,9 +12,9 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/v1/single/todo")
-public class TodoControllerSingle{
+public class TodoController {
 
-    private final TodoServiceSingle todoService;
+    private final TodoService todoService;
 
     @PostMapping
     public BaseResponseDTO save(@RequestBody TodoRequestDTO todoRequestDTO) {

@@ -11,9 +11,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ErrorResponseDTO {
+public class ErrorResponseDTO<T> {
 
-    private String message;
+    private T message;
     private Integer status;
     private LocalDateTime timestamp;
 

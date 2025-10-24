@@ -1,15 +1,15 @@
 databaseChangeLog:
   - changeSet:
       id: 1
-      author: nezrin
-      context: dev
+      author: nezrin-huseynli
       changes:
         - createTable:
             tableName: users
             columns:
               - column:
                   name: id
-                  type: BIGSERIAL
+                  type: BIGINT
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
               - column:

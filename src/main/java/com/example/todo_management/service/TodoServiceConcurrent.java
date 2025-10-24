@@ -37,7 +37,7 @@ public class TodoServiceConcurrent {
         if (byId.isPresent()) {
             return CompletableFuture.completedFuture(byId.get());
         } else {
-            throw new TodoNotFoundException(ErrorCodeEnum.NOT_FOUND.getMessage());
+            throw new TodoNotFoundException(ErrorCodeEnum.TODO_NOT_FOUND.getMessage());
         }
     }
 
@@ -46,7 +46,7 @@ public class TodoServiceConcurrent {
         List<TodoEntity> todoEntityList = todoRepository.findAll();
 
         if (todoEntityList.isEmpty()) {
-            throw new TodoNotFoundException(ErrorCodeEnum.NOT_FOUND.getMessage());
+            throw new TodoNotFoundException(ErrorCodeEnum.TODO_NOT_FOUND.getMessage());
         } else {
             return CompletableFuture.completedFuture(todoEntityList);
         }
@@ -61,7 +61,7 @@ public class TodoServiceConcurrent {
         if (byId.isPresent()) {
             todoEntity = byId.get();
         } else {
-            throw new TodoNotFoundException(ErrorCodeEnum.NOT_FOUND.getMessage());
+            throw new TodoNotFoundException(ErrorCodeEnum.TODO_NOT_FOUND.getMessage());
         }
 
         BeanUtils.copyProperties(todoRequestDTO, todoEntity);
@@ -77,7 +77,7 @@ public class TodoServiceConcurrent {
             TodoEntity todoEntity = optionalTodo.get();
             todoRepository.delete(todoEntity);
         } else {
-            throw new TodoNotFoundException(ErrorCodeEnum.NOT_FOUND.getMessage());
+            throw new TodoNotFoundException(ErrorCodeEnum.TODO_NOT_FOUND.getMessage());
         }
         return CompletableFuture.completedFuture(BaseResponseDTO.getSuccessMessage());
     }
